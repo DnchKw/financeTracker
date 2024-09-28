@@ -81,7 +81,12 @@ fun MainScreen(
                             } else {
                                 balanceState.value.balance.toString()
                             },
-                            fontSize = 24.sp
+                            fontSize = 24.sp,
+                            color = if (balanceState.value.balance < 0) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                Color.Unspecified
+                            }
                         )
                         Box(
                             modifier = Modifier.fillMaxWidth().padding(5.dp),

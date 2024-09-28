@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -72,14 +74,26 @@ fun AddIncome(
 
     Scaffold { padding ->
         Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(padding).fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(padding)
         ) {
+            IconButton(onClick = {
+                navController.navigate(Destinations.Main.route)
+            }) {
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    "Back",
+                    Modifier.size(26.dp)
+                )
+            }
             Text(
                 "Add Income",
-                fontSize = 30.sp
+                fontSize = 26.sp
             )
+            IconButton(onClick = {}) {
+//                Cap
+            }
         }
     }
     Column(

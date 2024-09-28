@@ -2,7 +2,6 @@ package com.dnchkw.financetracker.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,10 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenuItem
@@ -33,7 +32,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,19 +42,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dnchkw.financetracker.AppViewModel
-import com.dnchkw.financetracker.database.AppDatabase
-import com.dnchkw.financetracker.database.entities.Balance
 import com.dnchkw.financetracker.database.entities.MoneyTransaction
 import com.dnchkw.financetracker.ui.components.icons.categoryList
 import com.dnchkw.financetracker.ui.components.icons.getCategoryIcon
 import com.dnchkw.financetracker.ui.components.icons.getCurrencyIcon
 import com.dnchkw.financetracker.ui.navigation.Destinations
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddExpense(
     viewModel: AppViewModel,
@@ -80,14 +74,26 @@ fun AddExpense(
 
     Scaffold { padding ->
         Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(padding).fillMaxWidth()
-            ) {
+            modifier = Modifier.fillMaxWidth().padding(padding)
+        ) {
+            IconButton(onClick = {
+                navController.navigate(Destinations.Main.route)
+            }) {
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    "Back",
+                    Modifier.size(26.dp)
+                )
+            }
             Text(
                 "Add Expense",
-                fontSize = 30.sp
+                fontSize = 26.sp
             )
+            IconButton(onClick = {}) {
+//              Cap
+            }
         }
     }
     Column(
@@ -115,7 +121,6 @@ fun AddExpense(
             placeholder = {
                 Text(
                     text = "0",
-//                    color = Color.Gray,
                     fontSize = 18.sp
                 )
             },
@@ -133,7 +138,6 @@ fun AddExpense(
                 Icon(
                     imageVector = getCurrencyIcon(currency),
                     contentDescription = currency,
-//                    tint = Color.White,
                     modifier = Modifier.size(28.dp)
                 )
             }

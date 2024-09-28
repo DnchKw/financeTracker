@@ -16,15 +16,12 @@ class AppViewModel(private val db: AppDatabase) : ViewModel() {
     private var _transactionsByDate = MutableStateFlow<List<TransactionsByDate>>(
         mutableListOf<TransactionsByDate>()
     )
-    private var _isFirstRun = MutableStateFlow(false)
-    var isBalanceCreated = true
 
     val balance = _balance.asStateFlow()
     val transactionsByDate = _transactionsByDate.asStateFlow()
 
     init {
         viewModelScope.launch {
-//            _balance.value = db.accountDao().getBalanceById(1)
             transactions = db.moneyTransactionDao().getAllTransactions().toMutableList()
             setLastTransactionsByDate()
         }
@@ -57,7 +54,7 @@ class AppViewModel(private val db: AppDatabase) : ViewModel() {
 
             db.moneyTransactionDao().upsertTransaction(newTransaction)
 
-            val balance = db.accountDao().getBalanceById(1)!!
+            val balance = db.accountDao().getBalanceById(1)
             transactions.add(newTransaction)
             setLastTransactionsByDate()
 
